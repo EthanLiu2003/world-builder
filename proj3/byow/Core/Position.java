@@ -7,4 +7,7 @@ public class Position {
         this.x = x;
         this.y= y;
     }
+    public Position shift(int dx, int dy) {
+        return new Position(this.x + dx, this.y + dy);
+    }
 }

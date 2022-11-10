@@ -50,6 +50,17 @@ public class Engine {
         Random seed = new Random(Integer.parseInt(input.replaceAll("[^0-9]", "")));
 
         TETile[][] finalWorldFrame = new TETile[WIDTH][HEIGHT];
+        World world = new World(finalWorldFrame, seed, HEIGHT, WIDTH);
+        world.generateWorld(seed, finalWorldFrame, WIDTH, HEIGHT);
+        world.fillWithRooms(seed, finalWorldFrame, WIDTH, HEIGHT);
+        world.fillWithHallways(seed, finalWorldFrame);
         return finalWorldFrame;
+    }
+    public static void main(String[] args) {
+        TERenderer ter = new TERenderer();
+        ter.initialize(WIDTH, HEIGHT);
+        Engine engine = new Engine();
+        TETile[][] world = engine.interactWithInputString("699283");
+        engine.ter.renderFrame(world);
     }
 }
