@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="library-fa22" level="project" />
+    <orderEntry type="library" name="library-fa221" level="project" />
   </component>
 </module>
