@@ -53,7 +53,7 @@ public class Engine {
         World world = new World(finalWorldFrame, seed, HEIGHT, WIDTH);
         world.generateWorld(seed, finalWorldFrame, WIDTH, HEIGHT);
         world.fillWithRooms(seed, finalWorldFrame, WIDTH, HEIGHT);
-        world.fillWithHallways(seed, finalWorldFrame);
+        world.connectRooms(seed, finalWorldFrame);
         return finalWorldFrame;
     }
     public static void main(String[] args) {
