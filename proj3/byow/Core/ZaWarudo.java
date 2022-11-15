@@ -6,7 +6,7 @@ import byow.TileEngine.Tileset;
 import java.util.*;
 
 public class ZaWarudo {
-    private TETile[][] world;
+    public TETile[][] world;
     private Random seed;
     private int worldHeight;
     private int worldWidth;
@@ -28,14 +28,14 @@ public class ZaWarudo {
         }
     }
 
-    public void print(HashSet<Position> givenPos, TETile type) {
-        for (Position p : givenPos) {
+    public void print(TETile type) {
+        for (Position p : floorPoints) {
             world[p.x][p.y] = type;
         }
     }
 
     public void fillWithRooms() {
-        int numRooms = seed.nextInt(8, 12);
+        int numRooms = seed.nextInt(12, 16);
         for (int num = 0; num < numRooms; num++) {
             int width = seed.nextInt(4, 10);
             int height = seed.nextInt(4, 10);
@@ -56,14 +56,13 @@ public class ZaWarudo {
             Room secondRoom = zaRooms.removeFirst();
             Position first = firstRoom.centerPosition();
             Position second = secondRoom.centerPosition();
-            Path thePath = new Path();
-            floorPoints.addAll(thePath.connect(first, second, seed));
-            int addBack = seed.nextInt();
-            if(addBack % 2 == 0) {
-                zaRooms.addLast(firstRoom);
-            } else if (addBack % 2 != 0) {
-                zaRooms.addLast(secondRoom);
-            }
+            floorPoints.addAll(Path.connect(first, second, seed));
+//            int addBack = seed.nextInt();
+//            if(addBack % 2 == 0) {
+//                zaRooms.addLast(firstRoom);
+//            } else if (addBack % 2 != 0) {
+//                zaRooms.addLast(secondRoom);
+//            }
         }
     }
 

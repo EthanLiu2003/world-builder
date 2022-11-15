@@ -6,120 +6,32 @@ import java.util.HashSet;
 import java.util.Random;
 
 public class Path {
-    public Path() {
-    }
-    public HashSet<Position> connect(Position first, Position second, Random seed) {
+    public static HashSet<Position> connect(Position p1, Position p2, Random seed) {
         HashSet<Position> path = new HashSet<>();
-        int xDistance = first.x - second.x;
-        int yDistance = first.y - second.y;
-        int x = first.x;
-        int y = first.y;
-        int x2 = second.x;
-        int y2 = second.y;
 
-        if (xDistance < 0) {
-            x = second.x;
-            y = second.y;
-            x2 = first.x;
-            y2 = first.y;
-            yDistance = second.y - first.y;
+        if (p1.x > p2.x) {
+            Position save = p1;
+            p1 = p2;
+            p2 = save;
         }
-        if (xDistance == 0) {
-            if (yDistance < 0) {
-                while(y != y2) {
-                    y -= 1;
-                    path.add(new Position(x, y));
-                }
-            } else {
-                while(y != y2) {
-                    y += 1;
-                    path.add(new Position(x, y));
-                }
-            }
-            return path;
+        int yDistance = p1.y - p2.y;
+        int x = p1.x;
+        int y = p1.y;
+        while(x != p2.x) {
+            x += 1;
+            path.add(new Position(x, p1.y));
         }
-        if (yDistance == 0) {
-            if (xDistance < 0) {
-                while(x != x2) {
-                    x -= 1;
-                    path.add(new Position(x, y));
-                }
-            } else {
-                while(x != x2) {
-                    x += 1;
-                    path.add(new Position(x, y));
-                }
-            }
-            return path;
-        }
-
-        int direction = 0;
-        direction = seed.nextInt(2);
-
-        if(direction == 0) {
-            int turn = x + (Math.abs(xDistance)/2);
-            while(x != turn) {
-                x += 1;
-                path.add(new Position(x, y));
-            }
-            if (yDistance < 0) {
-                while(y != y2) {
-                    y -= 1;
-                    path.add(new Position(x,y));
-                }
-            } else {
-                while(y != y2) {
-                    y+= 1;
-                    path.add(new Position(x,y));
-                }
-            }
-            while(x != x2) {
-                x += 1;
-                path.add(new Position(x, y));
-            }
-        }
-        if(direction == 1 && yDistance < 0) {
-            int turn = y - (Math.abs(yDistance)/2);
-            while(y != turn) {
+        if (yDistance < 0) {
+            path.add(new Position(p2.x, y));
+            while(y != p2.y) {
                 y -= 1;
-                path.add(new Position(x, y));
+                path.add(new Position(p2.x, y));
             }
-            if (xDistance < 0) {
-                while(x != x2) {
-                    x -= 1;
-                    path.add(new Position(x,y));
-                }
-            } else {
-                while(x != x2) {
-                    x+= 1;
-                    path.add(new Position(x,y));
-                }
-            }
-            while(y != y2) {
-                y -= 1;
-                path.add(new Position(x, y));
-            }
-        }
-        if(direction == 1 && yDistance > 0) {
-            int turn = y + (Math.abs(yDistance)/2);
-            while(y != turn) {
+        } else if (yDistance > 0) {
+            path.add(new Position(p2.x, y));
+            while(y != p2.y) {
                 y += 1;
-                path.add(new Position(x, y));
-            }
-            if (xDistance < 0) {
-                while(x != x2) {
-                    x -= 1;
-                    path.add(new Position(x,y));
-                }
-            } else {
-                while(x != x2) {
-                    x+= 1;
-                    path.add(new Position(x,y));
-                }
-            }
-            while(y != y2) {
-                y += 1;
-                path.add(new Position(x, y));
+                path.add(new Position(p2.x, y));
             }
         }
         return path;

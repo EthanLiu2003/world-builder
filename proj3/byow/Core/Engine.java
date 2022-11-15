@@ -2,6 +2,8 @@ package byow.Core;
 
 import byow.TileEngine.TERenderer;
 import byow.TileEngine.TETile;
+import byow.TileEngine.Tileset;
+
 import java.util.Random;
 
 
@@ -54,7 +56,8 @@ public class Engine {
         world.generateEmptyWorld(seed, finalWorldFrame, WIDTH, HEIGHT);
         world.fillWithRooms();
         world.connectRooms();
-        return finalWorldFrame;
+        world.print(Tileset.FLOOR);
+        return world.world;
     }
     public static void main(String[] args) {
         TERenderer ter = new TERenderer();
