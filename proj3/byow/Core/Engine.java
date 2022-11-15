@@ -56,7 +56,7 @@ public class Engine {
         world.generateEmptyWorld(seed, finalWorldFrame, WIDTH, HEIGHT);
         world.fillWithRooms();
         world.connectRooms();
-        world.print(Tileset.FLOOR);
+        world.addWalls();
         return world.world;
     }
     public static void main(String[] args) {

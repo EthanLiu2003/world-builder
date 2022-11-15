@@ -10,6 +10,7 @@ public class Room {
     int width;
     int height;
 
+
     public Room(Position p, int width, int height) {
         this.p = p;
         this.width = width;
@@ -17,7 +18,7 @@ public class Room {
     }
 
     public Position centerPosition() {
-        return new Position(p.x + (width / 2) + 1, p.y + (height / 2) + 1);
+        return new Position(p.x + (width / 2), p.y + (height / 2));
     }
 
     public void createRoom(Position p, TETile[][] world) { // draw floors and walls
@@ -27,5 +28,14 @@ public class Room {
                 world[x][y] = Tileset.FLOOR;
             }
         }
+    }
+    public HashSet<Position> getRoomPositions(Position p, int roomWidth, int roomHeight) {
+        HashSet<Position> positions = new HashSet<>();
+        for (int x = p.x; x <  p.x + roomWidth; x++) {
+            for (int y = p.y; y <  p.y + roomHeight; y++) {
+                positions.add(new Position(x, y));
+            }
+        }
+        return positions;
     }
 }

@@ -10,8 +10,7 @@ public class ZaWarudo {
     private Random seed;
     private int worldHeight;
     private int worldWidth;
-    private HashSet<Position> floorPoints;
-    private HashSet<Position> wallPoints;
+    private HashSet<Position> floorPoints = new HashSet<>();
     private LinkedList<Room> Rooms = new LinkedList<>();
 
     public ZaWarudo(TETile[][] world, Random seed, int height, int width) {
@@ -28,17 +27,16 @@ public class ZaWarudo {
         }
     }
 
-    public void print(TETile type) {
-        for (Position p : floorPoints) {
-            world[p.x][p.y] = type;
-        }
-    }
 
     public void fillWithRooms() {
         int numRooms = seed.nextInt(12, 16);
         for (int num = 0; num < numRooms; num++) {
             int width = seed.nextInt(4, 10);
             int height = seed.nextInt(4, 10);
+            while (width % 2 != 1 || height % 2 != 1) {
+                width = seed.nextInt(4, 10);
+                height = seed.nextInt(4, 10);
+            }
             Position pos = new Position(seed.nextInt(worldWidth - (width + 1)), seed.nextInt(worldHeight - (height + 1)));
             while (isOccupiedSpace(world, width, height, pos)) {
                 pos = new Position(seed.nextInt(worldWidth - (width + 1)), seed.nextInt(worldHeight - (height + 1)));
@@ -46,6 +44,7 @@ public class ZaWarudo {
             Room room = new Room(pos, width, height);
             room.createRoom(pos, world);
             Rooms.addFirst(room);
+            floorPoints.addAll(room.getRoomPositions(pos, width, height));
         }
     }
 
@@ -56,19 +55,34 @@ public class ZaWarudo {
             Room secondRoom = zaRooms.removeFirst();
             Position first = firstRoom.centerPosition();
             Position second = secondRoom.centerPosition();
-            floorPoints.addAll(Path.connect(first, second, seed));
-//            int addBack = seed.nextInt();
-//            if(addBack % 2 == 0) {
-//                zaRooms.addLast(firstRoom);
-//            } else if (addBack % 2 != 0) {
-//                zaRooms.addLast(secondRoom);
-//            }
+            System.out.println("First position: " + first.x + ", " + first.y);
+            System.out.println("Second position: " + second.x + ", " + second.y);
+            Path thePath = new Path(worldWidth, worldHeight);
+            thePath.connect(first, second, world);
+            int addBack = seed.nextInt();
+            if (addBack % 2 == 0) {
+                zaRooms.addLast(firstRoom);
+            } else if (addBack % 2 != 0) {
+                zaRooms.addLast(secondRoom);
+            }
         }
     }
 
-//    public void addWalls() {
-//        for()
-//    }
+    public void addWalls() {
+        for (int x = 0; x < worldWidth; x++) {
+            for (int y = 0; y < worldHeight; y++) {
+                if (x == 0 || x == worldWidth - 1 || y == 0 || y == worldHeight - 1) {
+                    if (world[x][y] == Tileset.FLOOR) {
+                        world[x][y] = Tileset.WALL;
+                    }
+                }
+                if (world[x][y] == Tileset.FLOOR) {
+                    System.out.println("Floor at position: " + x + ", " + y);
+                    shouldBeWall(x, y);
+                }
+            }
+        }
+    }
 
     public boolean isOccupiedSpace(TETile[][] world, int width, int height, Position p) {
         for (int x = p.x; x < p.x + width; x++) {
@@ -79,6 +93,37 @@ public class ZaWarudo {
             }
         }
         return false;
+    }
+
+    public void shouldBeWall(int x, int y) {
+        if (x - 1 >= 0) {
+            if (world[x - 1][y] == Tileset.NOTHING) {
+                world[x - 1][y] = Tileset.WALL;
+            }
+            if (world[x - 1][y - 1] == Tileset.NOTHING && y - 1 >= 0) {
+                world[x - 1][y - 1] = Tileset.WALL;
+            }
+            if (world[x - 1][y + 1] == Tileset.NOTHING && y + 1 < worldHeight) {
+                world[x - 1][y + 1] = Tileset.WALL;
+            }
+        }
+        if (x + 1 < worldWidth) {
+            if (world[x + 1][y] == Tileset.NOTHING) {
+                world[x + 1][y] = Tileset.WALL;
+            }
+            if (world[x + 1][y - 1] == Tileset.NOTHING && y - 1 >= 0) {
+                world[x + 1][y - 1] = Tileset.WALL;
+            }
+            if (world[x + 1][y + 1] == Tileset.NOTHING && y + 1 < worldHeight) {
+                world[x + 1][y + 1] = Tileset.WALL;
+            }
+        }
+        if (world[x][y - 1] == Tileset.NOTHING && y - 1 >= 0) {
+            world[x][y - 1] = Tileset.WALL;
+        }
+        if (world[x][y + 1] == Tileset.NOTHING && y + 1 < worldHeight) {
+            world[x][y + 1] = Tileset.WALL;
+        }
     }
 
 }
