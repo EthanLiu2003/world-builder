@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Random;
 
 public class Path {
-    public Path(TETile[][] world) {
+    public Path() {
     }
     public HashSet<Position> connect(Position first, Position second, Random seed) {
         HashSet<Position> path = new HashSet<>();

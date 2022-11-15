@@ -50,10 +50,10 @@ public class Engine {
         Random seed = new Random(Integer.parseInt(input.replaceAll("[^0-9]", "")));
 
         TETile[][] finalWorldFrame = new TETile[WIDTH][HEIGHT];
-        World world = new World(finalWorldFrame, seed, HEIGHT, WIDTH);
-        world.generateWorld(seed, finalWorldFrame, WIDTH, HEIGHT);
-        world.fillWithRooms(seed, finalWorldFrame, WIDTH, HEIGHT);
-        world.connectRooms(seed, finalWorldFrame);
+        ZaWarudo world = new ZaWarudo(finalWorldFrame, seed, HEIGHT, WIDTH);
+        world.generateEmptyWorld(seed, finalWorldFrame, WIDTH, HEIGHT);
+        world.fillWithRooms();
+        world.connectRooms();
         return finalWorldFrame;
     }
     public static void main(String[] args) {
