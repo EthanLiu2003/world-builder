@@ -107,13 +107,13 @@ public class Engine {
                             p = save;
                         }
 //                        if (in == 'L' || in == 'l') {
-//                    // load saved game
+//                    // load saved game --> use In to load
 //                }
 //                if (in == ':') {
 //                    if (StdDraw.hasNextKeyTyped()) {
 //                        char next = StdDraw.nextKeyTyped();
 //                        if (next == 'Q' || next == 'q') {
-//                            // quit
+//                            // quit and save the game --> use Out to save
 //                        }
                     }
                 }
