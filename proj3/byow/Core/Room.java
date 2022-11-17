@@ -29,10 +29,11 @@ public class Room {
             }
         }
     }
+
     public HashSet<Position> getRoomPositions(Position p, int roomWidth, int roomHeight) {
         HashSet<Position> positions = new HashSet<>();
-        for (int x = p.x; x <  p.x + roomWidth; x++) {
-            for (int y = p.y; y <  p.y + roomHeight; y++) {
+        for (int x = p.x; x < p.x + roomWidth; x++) {
+            for (int y = p.y; y < p.y + roomHeight; y++) {
                 positions.add(new Position(x, y));
             }
         }
