@@ -3,7 +3,9 @@ package byow.Core;
 import byow.TileEngine.TETile;
 import byow.TileEngine.Tileset;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Random;
 
 public class ZaWarudo {
     public TETile[][] world;
@@ -12,6 +14,8 @@ public class ZaWarudo {
     private int worldWidth;
     private HashSet<Position> floorPoints = new HashSet<>();
     private LinkedList<Room> Rooms = new LinkedList<>();
+    private boolean avatarPlaced;
+
 
     public ZaWarudo(TETile[][] world, Random seed, int height, int width) {
         this.world = world;
@@ -55,8 +59,6 @@ public class ZaWarudo {
             Room secondRoom = zaRooms.removeFirst();
             Position first = firstRoom.centerPosition();
             Position second = secondRoom.centerPosition();
-            System.out.println("First position: " + first.x + ", " + first.y);
-            System.out.println("Second position: " + second.x + ", " + second.y);
             Path thePath = new Path(worldWidth, worldHeight);
             thePath.connect(first, second, world);
             int addBack = seed.nextInt();
@@ -77,7 +79,6 @@ public class ZaWarudo {
                     }
                 }
                 if (world[x][y] == Tileset.FLOOR) {
-                    System.out.println("Floor at position: " + x + ", " + y);
                     shouldBeWall(x, y);
                 }
             }
@@ -125,5 +126,4 @@ public class ZaWarudo {
             world[x][y + 1] = Tileset.WALL;
         }
     }
-
 }
