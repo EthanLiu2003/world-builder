@@ -78,6 +78,7 @@ public class Engine {
         world.fillWithRooms();
         world.connectRooms();
         world.addWalls();
+        //world.placeDoor(WIDTH, HEIGHT); // would have to add more conditions for going off the board here and not adding floor
         return world.world;
     }
 
