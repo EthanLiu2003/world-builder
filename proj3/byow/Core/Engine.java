@@ -89,14 +89,15 @@ public class Engine {
                         if (xPos > -1 && xPos < WIDTH && yPos > -1 && yPos < HEIGHT) {
                             StdDraw.setPenColor(new Color(246, 74, 170));
                             StdDraw.setFont(smallFont);
+                            System.out.println("why not working?");
                             posDesc = world.world[xPos][yPos].description();
-                            if (posDesc.equals(saved)) {
+//                            if (posDesc.equals(saved)) {
                                 saved = posDesc; // save old pos, compare to new one7
                                 System.out.println(saved + posDesc);
                                 StdDraw.textLeft(1, HEIGHT - 1, posDesc);
                                 StdDraw.show();
                                 ter.renderFrame(world.world); // only call render frame once?
-                            }
+//                            }
                         }
                         if (StdDraw.hasNextKeyTyped()) { // calls the movement of avatar
                             char next = StdDraw.nextKeyTyped();
