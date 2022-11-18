@@ -14,6 +14,12 @@ public class Engine {
     /* Feel free to change the width and height. */
     public static final int WIDTH = 80;
     public static final int HEIGHT = 30;
+    private TETile[][] world;
+    private long seed;
+
+    public Engine() {
+
+    }
 
     /**
      * Method used for exploring a fresh world. This method should handle all inputs,
@@ -39,6 +45,49 @@ public class Engine {
         StdDraw.text(WIDTH / 2, HEIGHT - 16.5, "Load Game (L)");
         StdDraw.text(WIDTH / 2, HEIGHT - 18, "Quit (Q)");
         StdDraw.show();
+
+        while (true) { // don't need to break since user always entering key
+            if (StdDraw.hasNextKeyTyped()) {
+                char in = StdDraw.nextKeyTyped();
+                if (in == 'n' || in == 'N') {
+                    StdDraw.clear(Color.BLACK);
+                    StdDraw.text(WIDTH / 2, HEIGHT / 2, "Please enter a seed: ");
+                    StdDraw.show();
+                    while (true) {
+                        String seedTot = "";
+                        if (StdDraw.hasNextKeyTyped()) {
+                            seedTot += Character.toString(StdDraw.nextKeyTyped());
+                            if (StdDraw.nextKeyTyped() == 's') {
+                                System.out.println(seedTot);
+                                break;
+                            }
+                        }
+                    }
+//                    TETile[][] world = engine.interactWithInputString(seedEntered);
+//                    engine.interactWithKeyboard();
+//                    Interact interact = new Interact(world);
+//                    Position p = interact.placeAvatar(WIDTH, HEIGHT);
+                    engine.ter.renderFrame(world);
+                    while (true) {
+                        if (StdDraw.hasNextKeyTyped()) {
+                            char next = StdDraw.nextKeyTyped();
+                            Position save = interact.move(next, p);
+                            engine.ter.renderFrame(world);
+                            p = save;
+                        }
+//                        if (in == 'L' || in == 'l') {
+//                    // load saved game --> use In to load
+//                }
+//                if (in == ':') {
+//                    if (StdDraw.hasNextKeyTyped()) {
+//                        char next = StdDraw.nextKeyTyped();
+//                        if (next == 'Q' || next == 'q') {
+//                            // quit and save the game --> use Out to save
+//                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -95,30 +144,5 @@ public class Engine {
         engine.interactWithKeyboard();
         Interact interact = new Interact(world);
         Position p = interact.placeAvatar(WIDTH, HEIGHT);
-        while (true) { // don't need to break since user always entering key
-            if (StdDraw.hasNextKeyTyped()) {
-                char in = StdDraw.nextKeyTyped();
-                if (in == 'n' || in == 'N') {
-                    engine.ter.renderFrame(world);
-                    while (true) {
-                        if (StdDraw.hasNextKeyTyped()) {
-                            char next = StdDraw.nextKeyTyped();
-                            Position save = interact.move(next, p);
-                            engine.ter.renderFrame(world);
-                            p = save;
-                        }
-//                        if (in == 'L' || in == 'l') {
-//                    // load saved game --> use In to load
-//                }
-//                if (in == ':') {
-//                    if (StdDraw.hasNextKeyTyped()) {
-//                        char next = StdDraw.nextKeyTyped();
-//                        if (next == 'Q' || next == 'q') {
-//                            // quit and save the game --> use Out to save
-//                        }
-                    }
-                }
-            }
-        }
     }
 }
