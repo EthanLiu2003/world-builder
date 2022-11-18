@@ -3,7 +3,9 @@ package byow.Core;
 import byow.TileEngine.TETile;
 import byow.TileEngine.Tileset;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Random;
 
 public class ZaWarudo {
     public TETile[][] world;
@@ -12,6 +14,8 @@ public class ZaWarudo {
     private int worldWidth;
     private HashSet<Position> floorPoints = new HashSet<>();
     private LinkedList<Room> Rooms = new LinkedList<>();
+    private boolean doorPlaced;
+
 
     public ZaWarudo(TETile[][] world, Random seed, int height, int width) {
         this.world = world;
@@ -123,4 +127,22 @@ public class ZaWarudo {
         }
     }
 
+    public void placeDoor(int width, int height) {
+        for (int x = 0; x < width - 1; x++) {
+            for (int y = 0; y < height - 1; y++) {
+                if (!doorPlaced && world[x][y] == Tileset.WALL && !isCorner(x, y)) {
+                    world[x][y] = Tileset.LOCKED_DOOR; // set the tile to be avatar, must track this old spot
+                    doorPlaced = true;
+                }
+            }
+        }
+    }
+
+    public boolean isCorner(int x, int y) {
+        if (world[x][y + 1] == Tileset.FLOOR || world[x][y - 1] == Tileset.FLOOR ||
+                world[x - 1][y] == Tileset.FLOOR || world[x + 1][y] == Tileset.FLOOR) {
+            return false;
+        }
+        return true;
+    }
 }
