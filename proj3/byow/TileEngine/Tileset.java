@@ -18,7 +18,7 @@ import java.awt.Color;
 
 public class Tileset {
     public static final TETile AVATAR = new TETile('☺', new Color(246, 74, 170), Color.black, "you");
-    public static final TETile WALL = new TETile('#', new Color(144, 133, 183), new Color(47, 53, 73),
+    public static final TETile WALL = new TETile('#', new Color(145, 115, 164), new Color(50, 39, 59),
             "wall");
     public static final TETile FLOOR = new TETile('·', new Color(100, 143, 156), Color.black,
             "floor");
