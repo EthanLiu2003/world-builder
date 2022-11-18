@@ -55,8 +55,6 @@ public class ZaWarudo {
             Room secondRoom = zaRooms.removeFirst();
             Position first = firstRoom.centerPosition();
             Position second = secondRoom.centerPosition();
-            System.out.println("First position: " + first.x + ", " + first.y);
-            System.out.println("Second position: " + second.x + ", " + second.y);
             Path thePath = new Path(worldWidth, worldHeight);
             thePath.connect(first, second, world);
             int addBack = seed.nextInt();
@@ -77,7 +75,6 @@ public class ZaWarudo {
                     }
                 }
                 if (world[x][y] == Tileset.FLOOR) {
-                    System.out.println("Floor at position: " + x + ", " + y);
                     shouldBeWall(x, y);
                 }
             }

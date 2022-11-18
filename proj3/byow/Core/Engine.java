@@ -63,7 +63,7 @@ public class Engine {
         TERenderer ter = new TERenderer();
         ter.initialize(WIDTH, HEIGHT);
         Engine engine = new Engine();
-        TETile[][] world = engine.interactWithInputString("699283");
+        TETile[][] world = engine.interactWithInputString("9847557");
         engine.ter.renderFrame(world);
     }
 }
