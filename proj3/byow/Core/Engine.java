@@ -91,13 +91,13 @@ public class Engine {
                             StdDraw.setFont(smallFont);
                             System.out.println("why not working?");
                             posDesc = world.world[xPos][yPos].description();
-//                            if (posDesc.equals(saved)) {
+                            if (!posDesc.equals(saved)) {
                                 saved = posDesc; // save old pos, compare to new one7
                                 System.out.println(saved + posDesc);
                                 StdDraw.textLeft(1, HEIGHT - 1, posDesc);
                                 StdDraw.show();
                                 ter.renderFrame(world.world); // only call render frame once?
-//                            }
+                            }
                         }
                         if (StdDraw.hasNextKeyTyped()) { // calls the movement of avatar
                             char next = StdDraw.nextKeyTyped();
@@ -105,15 +105,22 @@ public class Engine {
                             ter.renderFrame(world.world);
                             p = save;
                         }
+                    }
+                }
 //                        if (in == 'L' || in == 'l') {
 //                    // load saved game --> use In to load
 //                }
-//                if (in == ':') {
-//                    if (StdDraw.hasNextKeyTyped()) {
-//                        char next = StdDraw.nextKeyTyped();
-//                        if (next == 'Q' || next == 'q') {
-//                            // quit and save the game --> use Out to save
-//                    }
+                else if (in == ':') { // make sure it can quit while the game is being played
+                    System.out.println("Trying to quit");
+                    if (StdDraw.hasNextKeyTyped()) {
+                        while (true) {
+                            char next = StdDraw.nextKeyTyped();
+                            if (next == 'Q' || next == 'q') {
+                                System.out.println("quit");
+                                // quit and save the game --> use Out to save
+                                System.exit(0);
+                            }
+                        }
                     }
                 }
             }
