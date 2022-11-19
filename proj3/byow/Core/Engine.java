@@ -112,12 +112,11 @@ public class Engine {
 //                }
                 else if (in == ':') { // make sure it can quit while the game is being played
                     System.out.println("Trying to quit");
-                    if (StdDraw.hasNextKeyTyped()) {
-                        while (true) {
+                    while (true) {
+                        if (StdDraw.hasNextKeyTyped()) {
                             char next = StdDraw.nextKeyTyped();
                             if (next == 'Q' || next == 'q') {
-                                System.out.println("quit");
-                                // quit and save the game --> use Out to save
+                                // figure out how to save
                                 System.exit(0);
                             }
                         }
