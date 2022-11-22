@@ -39,6 +39,8 @@ public class Engine {
         StdDraw.text(WIDTH / 2, HEIGHT - 16.5, "Load Game (L)");
         StdDraw.text(WIDTH / 2, HEIGHT - 18, "Quit (Q)");
         StdDraw.show();
+
+
     }
 
     /**
@@ -70,7 +72,7 @@ public class Engine {
         //
         // See proj3.byow.InputDemo for a demo of how you can make a nice clean interface
         // that works for many different input types.
-        Random seed = new Random(Integer.parseInt(input.replaceAll("[^0-9]", "")));
+        Random seed = new Random(Long.parseLong(input.replaceAll("[^0-9]", "")));
 
         TETile[][] finalWorldFrame = new TETile[WIDTH][HEIGHT];
         ZaWarudo world = new ZaWarudo(finalWorldFrame, seed, HEIGHT, WIDTH);
@@ -91,10 +93,6 @@ public class Engine {
         TERenderer ter = new TERenderer();
         ter.initialize(WIDTH, HEIGHT);
         Engine engine = new Engine();
-<<<<<<< HEAD
-        TETile[][] world = engine.interactWithInputString("9847557");
-        engine.ter.renderFrame(world);
-=======
         TETile[][] world = engine.interactWithInputString("699283");
         engine.interactWithKeyboard();
         Interact interact = new Interact(world);
@@ -124,6 +122,5 @@ public class Engine {
                 }
             }
         }
->>>>>>> c49e59cc615aab19ce5e80a2967e26ae9f7b4f7f
     }
 }
