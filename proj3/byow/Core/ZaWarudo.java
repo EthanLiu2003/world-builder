@@ -72,7 +72,7 @@ public class ZaWarudo {
 
     public void addWalls() {
         for (int x = 0; x < worldWidth; x++) {
-            for (int y = 0; y < worldHeight; y++) {
+            for (int y = 0; y < worldHeight - 2; y++) {
                 if (x == 0 || x == worldWidth - 1 || y == 0 || y == worldHeight - 1) {
                     if (world[x][y] == Tileset.FLOOR) {
                         world[x][y] = Tileset.WALL;

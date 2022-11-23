@@ -24,7 +24,7 @@ public class Room {
     public void createRoom(Position p, TETile[][] world) { // draw floors and walls
         HashSet<Position> toReturn = new HashSet<>();
         for (int x = p.x; x < p.x + width; x++) {
-            for (int y = p.y; y < p.y + height; y++) {
+            for (int y = p.y; y < p.y + height - 2; y++) {
                 world[x][y] = Tileset.FLOOR;
             }
         }
@@ -33,7 +33,7 @@ public class Room {
     public HashSet<Position> getRoomPositions(Position p, int roomWidth, int roomHeight) {
         HashSet<Position> positions = new HashSet<>();
         for (int x = p.x; x < p.x + roomWidth; x++) {
-            for (int y = p.y; y < p.y + roomHeight; y++) {
+            for (int y = p.y; y < p.y + roomHeight - 2; y++) {
                 positions.add(new Position(x, y));
             }
         }

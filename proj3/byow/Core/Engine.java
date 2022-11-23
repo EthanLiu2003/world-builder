@@ -88,6 +88,7 @@ public class Engine {
                                 StdDraw.text(WIDTH / 2, HEIGHT / 2, "Please enter a seed: ");
                                 StdDraw.text(WIDTH / 2 - 5, HEIGHT / 2 - 5, seedTot);
                                 StdDraw.show();
+                                System.out.println(seedTot);
                             }
                         }
                     }
@@ -125,6 +126,7 @@ public class Engine {
                 }
 //                        if (in == 'L' || in == 'l') {
 //                    // load saved game --> use In to load
+////                            savedMoves
 //                }
                 else if (in == ':') { // make sure it can quit while the game is being played
                     while (true) {
