@@ -94,6 +94,7 @@ public class Engine {
                     Interact interact = new Interact(world);
                     Position p = interact.placeAvatar(WIDTH, HEIGHT);
                     ter.renderFrame(world.world);
+                    String savedMoves = "";
                     while (true) {
                         xPos = (int) StdDraw.mouseX();
                         yPos = (int) StdDraw.mouseY();
@@ -102,11 +103,9 @@ public class Engine {
                         if (xPos > -1 && xPos < WIDTH && yPos > -1 && yPos < HEIGHT) {
                             StdDraw.setPenColor(new Color(246, 74, 170));
                             StdDraw.setFont(smallFont);
-                            System.out.println("why not working?");
                             posDesc = world.world[xPos][yPos].description();
                             if (!posDesc.equals(saved)) {
                                 saved = posDesc; // save old pos, compare to new one7
-                                System.out.println(saved + posDesc);
                                 StdDraw.textLeft(1, HEIGHT - 1, posDesc);
                                 StdDraw.show();
                                 ter.renderFrame(world.world); // only call render frame once?
@@ -114,22 +113,24 @@ public class Engine {
                         }
                         if (StdDraw.hasNextKeyTyped()) { // calls the movement of avatar
                             char next = StdDraw.nextKeyTyped();
+                            if (next != ':') {
+                                savedMoves += Character.toString(next);
+                            }
                             Position save = interact.move(next, p);
                             ter.renderFrame(world.world);
                             p = save;
                         }
+                        System.out.println(savedMoves); // all the moves saved
                     }
                 }
 //                        if (in == 'L' || in == 'l') {
 //                    // load saved game --> use In to load
 //                }
                 else if (in == ':') { // make sure it can quit while the game is being played
-                    System.out.println("Trying to quit");
                     while (true) {
                         if (StdDraw.hasNextKeyTyped()) {
                             char next = StdDraw.nextKeyTyped();
                             if (next == 'Q' || next == 'q') {
-                                // figure out how to save
                                 System.exit(0);
                             }
                         }

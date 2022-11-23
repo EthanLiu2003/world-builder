@@ -1,6 +1,7 @@
 package byow.Core;
 
 import byow.TileEngine.Tileset;
+import edu.princeton.cs.algs4.StdDraw;
 
 public class Interact {
     private ZaWarudo world;
@@ -67,6 +68,20 @@ public class Interact {
             world.world[xAvatar + 1][yAvatar] = Tileset.AVATAR;
             world.world[xAvatar][yAvatar] = Tileset.FLOOR; // replace old position
             return new Position(xAvatar + 1, yAvatar);
+        }
+        else if (keyboardInput == ':') { // make sure it can quit while the game is being played
+            while (true) {
+                if (StdDraw.hasNextKeyTyped()) {
+                    char next = StdDraw.nextKeyTyped();
+                    if (next == 'Q' || next == 'q') {
+                        // figure out how to save
+                        System.exit(0);
+                    }
+                    else { // if not :q then keep going
+                        return p;
+                    }
+                }
+            }
         }
         return p;
     }
