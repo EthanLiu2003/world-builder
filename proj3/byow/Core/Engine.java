@@ -71,8 +71,8 @@ public class Engine {
 //                }
                 String seedTot = "";
                 String savedMoves = "";
-                if (in == 'n' || in == 'N' || in == 'l' || in == 'L') {
-                    if (in == 'n' || in == 'N') {
+                if (in == 'n' || in == 'N') {
+//                    if (in == 'n' || in == 'N') {
                         StdDraw.clear(Color.BLACK);
                         StdDraw.text(WIDTH / 2, HEIGHT / 2, "Please enter a seed: ");
                         StdDraw.show();
@@ -94,34 +94,7 @@ public class Engine {
                                 }
                             }
                         }
-                    }
-                    if (in == 'l' || in == 'L' && !loadedAlr) {
-                        System.out.println("L pressed");
-                        In moves = new In(filename);
-                        String[] allMoves = moves.readAll().split(",");
-//                        String allMoves = moves.readAll();
-//                        System.out.println(allMoves);
-//                        for (char c : allMoves[0].toCharArray()) {
-//                            interactWithInputString(String.valueOf(c));
-//                        }
-                        System.out.println(allMoves[0] + " allMoves[0]");
-//                        System.out.println(allMoves[1] + " allMoves[1]");
-
-                        world.world = interactWithInputString(allMoves[0]);
-                        Interact interact = new Interact(world);
-                        Position p = interact.placeAvatar(WIDTH, HEIGHT);
-                        ter.renderFrame(world.world);
-                        for (int i = 0; i < allMoves[1].length(); i++) {
-                            char next = allMoves[1].charAt(i);
-                            Position save = interact.move(next, p);
-                            ter.renderFrame(world.world);
-                            p = save;
-                        }
-                        savedMoves += allMoves[1];
-//                        System.out.println(allMoves[0]);
-//                        interactWithInputString(String.valueOf(allMoves[0]));
-                        loadedAlr = true;
-                    }
+//                    }
                     Interact interact = new Interact(world);
                     Position p = interact.placeAvatar(WIDTH, HEIGHT);
                     ter.renderFrame(world.world);
@@ -156,7 +129,64 @@ public class Engine {
                         String s = hehe.readAll();
                         System.out.println(s);
                     }
-                } else if (in == ':') { // make sure it can quit while the game is being played
+                } if (in == 'l' || in == 'L' && !loadedAlr) {
+                    System.out.println("L pressed");
+                    In moves = new In(filename);
+                    String[] allMoves = moves.readAll().split(",");
+//                        String allMoves = moves.readAll();
+//                        System.out.println(allMoves);
+//                        for (char c : allMoves[0].toCharArray()) {
+//                            interactWithInputString(String.valueOf(c));
+//                        }
+                    System.out.println(allMoves[0] + " allMoves[0]");
+//                        System.out.println(allMoves[1] + " allMoves[1]");
+
+                    world.world = interactWithInputString(allMoves[0]);
+                    Interact interact = new Interact(world);
+                    Position p = interact.placeAvatar(WIDTH, HEIGHT);
+                    ter.renderFrame(world.world);
+                    for (int i = 0; i < allMoves[1].length(); i++) {
+                        char next = allMoves[1].charAt(i);
+                        Position save = interact.move(next, p);
+                        ter.renderFrame(world.world);
+                        p = save;
+                    }
+                    savedMoves += allMoves[1];
+//                        System.out.println(allMoves[0]);
+//                        interactWithInputString(String.valueOf(allMoves[0]));
+                    loadedAlr = true;
+
+                    //Interact interact = new Interact(world);
+//                    Position p = interact.placeAvatar(WIDTH, HEIGHT);
+                    ter.renderFrame(world.world);
+                    while (true) {
+                        xPos = (int) StdDraw.mouseX();
+                        yPos = (int) StdDraw.mouseY();
+                        String posDesc = "";
+                        String saved = "";
+                        if (xPos > -1 && xPos < WIDTH && yPos > -1 && yPos < HEIGHT) {
+                            StdDraw.setPenColor(new Color(246, 74, 170));
+                            StdDraw.setFont(smallFont);
+                            posDesc = world.world[xPos][yPos].description();
+                            if (!posDesc.equals(saved)) {
+                                saved = posDesc; // save old pos, compare to new one7
+                                StdDraw.textLeft(1, HEIGHT - 1, posDesc);
+                                StdDraw.show();
+                                ter.renderFrame(world.world); // only call render frame once?
+                            }
+                        }
+                        if (StdDraw.hasNextKeyTyped()) { // calls the movement of avatar
+                            char next = StdDraw.nextKeyTyped();
+                            if (next != ':') {
+                                savedMoves += Character.toString(next); // savedMoves = all the moves entered
+                            }
+                            Position save = interact.move(next, p);
+                            ter.renderFrame(world.world);
+                            p = save;
+                        }
+                    }
+                }
+                else if (in == ':') { // make sure it can quit while the game is being played
                     while (true) {
                         if (StdDraw.hasNextKeyTyped()) {
                             char next = StdDraw.nextKeyTyped();
