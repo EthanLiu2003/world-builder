@@ -72,29 +72,27 @@ public class Engine {
                 String seedTot = "";
                 String savedMoves = "";
                 if (in == 'n' || in == 'N') {
-//                    if (in == 'n' || in == 'N') {
-                        StdDraw.clear(Color.BLACK);
-                        StdDraw.text(WIDTH / 2, HEIGHT / 2, "Please enter a seed: ");
-                        StdDraw.show();
-                        while (true) {
-                            if (StdDraw.hasNextKeyTyped()) {
-                                char seedIn = StdDraw.nextKeyTyped();
-                                if ((seedIn == 's' || seedIn == 'S')) {
-                                    seedTot += Character.toString(seedIn);
-                                    System.out.println("Seed: " + seedTot);
-                                    world.world = interactWithInputString(seedTot);
-                                    break;
-                                } else {
-                                    seedTot += Character.toString(seedIn);
-                                    StdDraw.text(WIDTH / 2 - 5, HEIGHT / 2 - 5, "");
-                                    StdDraw.clear(Color.BLACK);
-                                    StdDraw.text(WIDTH / 2, HEIGHT / 2, "Please enter a seed: ");
-                                    StdDraw.text(WIDTH / 2 - 5, HEIGHT / 2 - 5, seedTot);
-                                    StdDraw.show();
-                                }
+                    StdDraw.clear(Color.BLACK);
+                    StdDraw.text(WIDTH / 2, HEIGHT / 2, "Please enter a seed: ");
+                    StdDraw.show();
+                    while (true) {
+                        if (StdDraw.hasNextKeyTyped()) {
+                            char seedIn = StdDraw.nextKeyTyped();
+                            if ((seedIn == 's' || seedIn == 'S')) {
+                                seedTot += Character.toString(seedIn);
+                                System.out.println("Seed: " + seedTot);
+                                world.world = interactWithInputString(seedTot);
+                                break;
+                            } else {
+                                seedTot += Character.toString(seedIn);
+                                StdDraw.text(WIDTH / 2 - 5, HEIGHT / 2 - 5, "");
+                                StdDraw.clear(Color.BLACK);
+                                StdDraw.text(WIDTH / 2, HEIGHT / 2, "Please enter a seed: ");
+                                StdDraw.text(WIDTH / 2 - 5, HEIGHT / 2 - 5, seedTot);
+                                StdDraw.show();
                             }
                         }
-//                    }
+                    }
                     Interact interact = new Interact(world);
                     Position p = interact.placeAvatar(WIDTH, HEIGHT);
                     ter.renderFrame(world.world);
@@ -129,18 +127,12 @@ public class Engine {
                         String s = hehe.readAll();
                         System.out.println(s);
                     }
-                } if (in == 'l' || in == 'L' && !loadedAlr) {
+                }
+                if (in == 'l' || in == 'L' && !loadedAlr) {
                     System.out.println("L pressed");
                     In moves = new In(filename);
                     String[] allMoves = moves.readAll().split(",");
-//                        String allMoves = moves.readAll();
-//                        System.out.println(allMoves);
-//                        for (char c : allMoves[0].toCharArray()) {
-//                            interactWithInputString(String.valueOf(c));
-//                        }
                     System.out.println(allMoves[0] + " allMoves[0]");
-//                        System.out.println(allMoves[1] + " allMoves[1]");
-
                     world.world = interactWithInputString(allMoves[0]);
                     Interact interact = new Interact(world);
                     Position p = interact.placeAvatar(WIDTH, HEIGHT);
@@ -152,13 +144,7 @@ public class Engine {
                     }
                     ter.renderFrame(world.world);
                     savedMoves += allMoves[1];
-//                        System.out.println(allMoves[0]);
-//                        interactWithInputString(String.valueOf(allMoves[0]));
                     loadedAlr = true;
-
-                    //Interact interact = new Interact(world);
-//                    Position p = interact.placeAvatar(WIDTH, HEIGHT);
-                    ter.renderFrame(world.world);
                     while (true) {
                         xPos = (int) StdDraw.mouseX();
                         yPos = (int) StdDraw.mouseY();
@@ -185,8 +171,7 @@ public class Engine {
                             p = save;
                         }
                     }
-                }
-                else if (in == ':') { // make sure it can quit while the game is being played
+                } else if (in == ':') { // make sure it can quit while the game is being played
                     while (true) {
                         if (StdDraw.hasNextKeyTyped()) {
                             char next = StdDraw.nextKeyTyped();
