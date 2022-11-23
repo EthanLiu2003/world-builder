@@ -147,10 +147,10 @@ public class Engine {
                     ter.renderFrame(world.world);
                     for (int i = 0; i < allMoves[1].length(); i++) {
                         char next = allMoves[1].charAt(i);
-                        Position save = interact.move(next, p);
-                        ter.renderFrame(world.world);
+                        Position save = interact.move(next, p); // calls move on the previously entered move
                         p = save;
                     }
+                    ter.renderFrame(world.world);
                     savedMoves += allMoves[1];
 //                        System.out.println(allMoves[0]);
 //                        interactWithInputString(String.valueOf(allMoves[0]));
