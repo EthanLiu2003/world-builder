@@ -66,6 +66,7 @@ public class Engine {
                     for(char c : allMoves.toCharArray()) {
                         interactWithInputString(String.valueOf(c));
                     }
+                    loadedAlr = true;
                 }
                 if (in == 'n' || in == 'N') {
                     StdDraw.clear(Color.BLACK);
