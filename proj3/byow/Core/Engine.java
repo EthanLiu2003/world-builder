@@ -7,6 +7,8 @@ import edu.princeton.cs.algs4.Out;
 import edu.princeton.cs.algs4.StdDraw;
 
 import java.awt.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 
@@ -27,6 +29,7 @@ public class Engine {
     }
 
     /**
+     * @source https://java2blog.com/java-localdatetime-to-string/
      * Method used for exploring a fresh world. This method should handle all inputs,
      * including inputs from the main menu.
      */
@@ -35,7 +38,6 @@ public class Engine {
         // get the input keys i guess
         StdDraw.setCanvasSize(WIDTH * 16, HEIGHT * 16);
         Font bigFont = new Font("Arial", Font.PLAIN, 40);
-
         StdDraw.setPenColor(new Color(246, 74, 170));
         StdDraw.setFont(bigFont);
         StdDraw.setXscale(0, WIDTH);
@@ -49,25 +51,14 @@ public class Engine {
         StdDraw.text(WIDTH / 2, HEIGHT - 15, "New Game (N)");
         StdDraw.text(WIDTH / 2, HEIGHT - 16.5, "Load Game (L)");
         StdDraw.text(WIDTH / 2, HEIGHT - 18, "Quit (Q)");
+        StdDraw.text(WIDTH / 2, HEIGHT - 19.5, "Replay (R)");
         StdDraw.show();
-
         TETile[][] finalWorldFrame = new TETile[WIDTH][HEIGHT];
         world = new ZaWarudo(finalWorldFrame, seed, HEIGHT, WIDTH);
         world.generateEmptyWorld(seed, finalWorldFrame, WIDTH, HEIGHT);
-
         while (true) { // don't need to break since user always entering key
             if (StdDraw.hasNextKeyTyped()) {
                 char in = StdDraw.nextKeyTyped();
-//                if (in == 'l' || in == 'L' && loadedAlr == false) {
-//                    System.out.println("ASdas");
-//                    In moves = new In(filename);
-//                    String allMoves = moves.readAll();
-//                    System.out.println(allMoves);
-//                    for (char c : allMoves.toCharArray()) {
-//                        interactWithInputString(String.valueOf(c));
-//                    }
-//                    loadedAlr = true;
-//                }
                 String seedTot = "";
                 String savedMoves = "";
                 String fileWords = "";
@@ -98,6 +89,13 @@ public class Engine {
                     Position p = interact.placeAvatar(WIDTH, HEIGHT);
                     ter.renderFrame(world.world);
                     while (true) {
+                        LocalDateTime currentLocalDateTime = LocalDateTime.now();
+                        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        String formattedDateTime = currentLocalDateTime.format(dateTimeFormatter);
+                        StdDraw.setPenColor(new Color(246, 74, 170));
+                        StdDraw.setFont(smallFont);
+                        StdDraw.textRight(WIDTH - 5, HEIGHT - 1, formattedDateTime);
+                        StdDraw.show();
                         xPos = (int) StdDraw.mouseX();
                         yPos = (int) StdDraw.mouseY();
                         String posDesc = "";
@@ -140,7 +138,6 @@ public class Engine {
                     }
                 }
                 if (in == 'l' || in == 'L' && !loadedAlr) {
-                    System.out.println("L pressed");
                     String[] moveParts = new String[2];
                     In moves = new In(filename);
                     while (!moves.isEmpty()) {
@@ -163,6 +160,81 @@ public class Engine {
                     loadedAlr = true;
                     Out out = new Out(filename);
                     while (true) {
+                        LocalDateTime currentLocalDateTime = LocalDateTime.now();
+                        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        String formattedDateTime = currentLocalDateTime.format(dateTimeFormatter);
+                        StdDraw.setPenColor(new Color(246, 74, 170));
+                        StdDraw.setFont(smallFont);
+                        StdDraw.textRight(WIDTH - 5, HEIGHT - 1, formattedDateTime);
+                        StdDraw.show();
+                        xPos = (int) StdDraw.mouseX();
+                        yPos = (int) StdDraw.mouseY();
+                        String posDesc = "";
+                        String saved = "";
+                        if (xPos > -1 && xPos < WIDTH && yPos > -1 && yPos < HEIGHT) {
+                            posDesc = world.world[xPos][yPos].description();
+                            if (!posDesc.equals(saved)) {
+                                saved = posDesc; // save old pos, compare to new one7
+                                StdDraw.textLeft(1, HEIGHT - 1, posDesc);
+                                StdDraw.show();
+                                ter.renderFrame(world.world); // only call render frame once?
+                            }
+                        }
+                        if (StdDraw.hasNextKeyTyped()) { // calls the movement of avatar
+                            char next = StdDraw.nextKeyTyped();
+                            if (next != ':') {
+                                savedMoves += Character.toString(next); // savedMoves = all the moves entered
+                            }
+                            if (next == ':') { // make sure it can quit while the game is being played
+                                while (true) {
+                                    if (StdDraw.hasNextKeyTyped()) {
+                                        char nextnext = StdDraw.nextKeyTyped();
+                                        if (nextnext == 'Q' || nextnext == 'q') {
+                                            fileWords += seedTot;
+                                            fileWords += ",";
+                                            fileWords += savedMoves;
+                                            System.out.println(fileWords);
+                                            out.print(fileWords);
+                                            System.exit(0);
+                                        }
+                                    }
+                                }
+                            }
+                            Position save = interact.move(next, p);
+                            ter.renderFrame(world.world);
+                            p = save;
+                        }
+                    }
+                }
+                if (in == 'R' || in == 'r') {
+                    String[] moveParts = new String[2];
+                    In moves = new In(filename);
+                    while (!moves.isEmpty()) {
+                        String allMoves = moves.readLine();
+                        moveParts = allMoves.split(",");
+                    }
+                    System.out.println(moveParts[1]);
+                    world.world = interactWithInputString(moveParts[0]); // fill w input string
+                    Interact interact = new Interact(world);
+                    Position p = interact.placeAvatar(WIDTH, HEIGHT);
+                    ter.renderFrame(world.world);
+                    for (int i = 0; i < moveParts[1].length(); i++) {
+                        char next = moveParts[1].charAt(i);
+                        Position save = interact.move(next, p); // calls move on the previously entered move
+                        p = save;
+                        ter.renderFrame(world.world);
+                        StdDraw.pause(250);
+                    }
+                    loadedAlr = true;
+                    Out out = new Out(filename);
+                    while (true) {
+                        LocalDateTime currentLocalDateTime = LocalDateTime.now();
+                        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                        String formattedDateTime = currentLocalDateTime.format(dateTimeFormatter);
+                        StdDraw.setPenColor(new Color(246, 74, 170));
+                        StdDraw.setFont(smallFont);
+                        StdDraw.textRight(WIDTH - 5, HEIGHT - 1, formattedDateTime);
+                        StdDraw.show();
                         xPos = (int) StdDraw.mouseX();
                         yPos = (int) StdDraw.mouseY();
                         String posDesc = "";
@@ -198,9 +270,6 @@ public class Engine {
                                     }
                                 }
                             }
-                            Position save = interact.move(next, p);
-                            ter.renderFrame(world.world);
-                            p = save;
                         }
                     }
                 } else if (in == ':') { // make sure it can quit while the game is being played
@@ -272,7 +341,6 @@ public class Engine {
             world.connectRooms();
             world.addWalls();
         }
-        //world.placeDoor(WIDTH, HEIGHT); // would have to add more conditions for going off the board here and not adding floor
         return world.world;
     }
 }
