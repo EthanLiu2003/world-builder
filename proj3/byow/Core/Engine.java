@@ -7,6 +7,7 @@ import edu.princeton.cs.algs4.Out;
 import edu.princeton.cs.algs4.StdDraw;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.Random;
 
 
@@ -123,15 +124,10 @@ public class Engine {
                                     if (StdDraw.hasNextKeyTyped()) {
                                         char nextnext = StdDraw.nextKeyTyped();
                                         if (nextnext == 'Q' || nextnext == 'q') {
-                                            // figure out how to save
-                                            //System.out.print(seedTot + ","); // save the seed --> not actually being saved rn
-                                            //System.out.print(savedMoves);
                                             fileWords += seedTot;
                                             fileWords += ",";
                                             fileWords += savedMoves;
                                             System.out.println(fileWords);
-//                                            out.print(seedTot + ","); // save the seed --> not actually being saved rn
-//                                            out.print(savedMoves);
                                             out.print(fileWords);
                                             System.exit(0);
                                         }
@@ -148,6 +144,7 @@ public class Engine {
                     System.out.println("L pressed");
                     In moves = new In(filename);
                     String[] allMoves = moves.readAll().split(",");
+                    System.out.println(Arrays.toString(allMoves));
                     System.out.println(allMoves[0] + " allMoves[0]");
                     world.world = interactWithInputString(allMoves[0]);
                     Interact interact = new Interact(world);
