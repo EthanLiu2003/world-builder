@@ -146,17 +146,24 @@ public class Engine {
                     String[] allMoves = moves.readAll().split(",");
                     System.out.println(Arrays.toString(allMoves));
                     System.out.println(allMoves[0] + " allMoves[0]");
-                    world.world = interactWithInputString(allMoves[0]);
+//                    world.world = interactWithInputString(allMoves[0]);
+                    world.world = interactWithInputString("n1234s");
                     Interact interact = new Interact(world);
                     Position p = interact.placeAvatar(WIDTH, HEIGHT);
                     ter.renderFrame(world.world);
-                    for (int i = 0; i < allMoves[1].length(); i++) {
-                        char next = allMoves[1].charAt(i);
+//                    for (int i = 0; i < allMoves[1].length(); i++) {
+//                        char next = allMoves[1].charAt(i);
+//                        Position save = interact.move(next, p); // calls move on the previously entered move
+//                        p = save;
+//                    }
+                    String hey = "wasd"; // testing with a pre loaded thing
+                    for (int i = 0; i < hey.length(); i++) {
+                        char next = hey.charAt(i);
                         Position save = interact.move(next, p); // calls move on the previously entered move
                         p = save;
                     }
                     ter.renderFrame(world.world);
-                    savedMoves += allMoves[1];
+//                    savedMoves += allMoves[1];
                     loadedAlr = true;
                     while (true) {
                         xPos = (int) StdDraw.mouseX();
