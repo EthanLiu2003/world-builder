@@ -142,14 +142,8 @@ public class Engine {
                             ter.renderFrame(world.world);
                             p = save;
                         }
-                        out.print(seedTot + ","); // save the seed --> not actually being saved rn
-                        out.print(savedMoves);
                     }
                 }
-//                System.out.println(seedTot);
-//                System.out.println(savedMoves);
-//                out.print(seedTot + ","); // save the seed --> not actually being saved rn
-//                out.print(savedMoves);
                 if (in == 'l' || in == 'L' && !loadedAlr) {
                     System.out.println("L pressed");
                     In moves = new In(filename);
