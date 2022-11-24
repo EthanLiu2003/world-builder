@@ -55,7 +55,6 @@ public class Engine {
         TETile[][] finalWorldFrame = new TETile[WIDTH][HEIGHT];
         world = new ZaWarudo(finalWorldFrame, seed, HEIGHT, WIDTH);
         world.generateEmptyWorld(seed, finalWorldFrame, WIDTH, HEIGHT);
-        Out out = new Out(filename);
 
         while (true) { // don't need to break since user always entering key
             if (StdDraw.hasNextKeyTyped()) {
@@ -74,6 +73,7 @@ public class Engine {
                 String savedMoves = "";
                 String fileWords = "";
                 if (in == 'n' || in == 'N') {
+                    Out out = new Out(filename);
                     StdDraw.clear(Color.BLACK);
                     StdDraw.text(WIDTH / 2, HEIGHT / 2, "Please enter a seed: ");
                     StdDraw.show();
@@ -142,21 +142,26 @@ public class Engine {
                 }
                 if (in == 'l' || in == 'L' && !loadedAlr) {
                     System.out.println("L pressed");
+                    String[] moveParts = new String[2];
                     In moves = new In(filename);
-                    String[] allMoves = {};
+//                    String[] allMoves = {};
                     while (!moves.isEmpty()) {
-                        allMoves = moves.readString().split(",");
-                        System.out.println(Arrays.toString(allMoves));
+                        String allMoves = moves.readLine();
+                        moveParts = allMoves.split(",");
+//                        System.out.println(Arrays.toString(allMoves));
                     }
-                    System.out.println(allMoves);
+//                    String allMoves = "";
+//                    allMoves = moves.readAll();
+//                    char[] charArrayOfMoves =  allMoves.toCharArray();
+                    System.out.println(moveParts[1]);
 //                    System.out.println(allMoves[0] + " allMoves[0]");
 //                    world.world = interactWithInputString(allMoves[0]);
-                    world.world = interactWithInputString(allMoves[0]); // fill w input string
+                    world.world = interactWithInputString(moveParts[0]); // fill w input string
                     Interact interact = new Interact(world);
                     Position p = interact.placeAvatar(WIDTH, HEIGHT);
                     ter.renderFrame(world.world);
-                    for (int i = 0; i < allMoves[1].length(); i++) {
-                        char next = allMoves[1].charAt(i);
+                    for (int i = 0; i < moveParts[1].length(); i++) {
+                        char next = moveParts[1].charAt(i);
                         Position save = interact.move(next, p); // calls move on the previously entered move
                         p = save;
                     }
