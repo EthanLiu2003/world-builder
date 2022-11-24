@@ -143,11 +143,14 @@ public class Engine {
                 if (in == 'l' || in == 'L' && !loadedAlr) {
                     System.out.println("L pressed");
                     In moves = new In(filename);
-                    String[] allMoves = moves.readAll().split(",");
-                    System.out.println(Arrays.toString(allMoves));
-                    System.out.println(allMoves[0] + " allMoves[0]");
+                    String[] allMoves = {};
+                    while (!moves.isEmpty()) {
+                        allMoves = moves.readString().split(",");
+                        System.out.println(Arrays.toString(allMoves));
+                    }
+//                    System.out.println(allMoves[0] + " allMoves[0]");
 //                    world.world = interactWithInputString(allMoves[0]);
-                    world.world = interactWithInputString("n1234s");
+                    world.world = interactWithInputString("n1234s"); // fill w input string
                     Interact interact = new Interact(world);
                     Position p = interact.placeAvatar(WIDTH, HEIGHT);
                     ter.renderFrame(world.world);
@@ -156,7 +159,7 @@ public class Engine {
 //                        Position save = interact.move(next, p); // calls move on the previously entered move
 //                        p = save;
 //                    }
-                    String hey = "wasd"; // testing with a pre loaded thing
+                    String hey = "wasd"; // testing with a pre loaded keyboard inputs
                     for (int i = 0; i < hey.length(); i++) {
                         char next = hey.charAt(i);
                         Position save = interact.move(next, p); // calls move on the previously entered move
