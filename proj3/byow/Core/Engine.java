@@ -324,6 +324,7 @@ public class Engine {
         world.fillWithRooms();
         world.connectRooms();
         world.addWalls();
+//        world.placeCoins(WIDTH, HEIGHT);
         String saveString = "";
         if (input.charAt(0) == 'N' || input.charAt(0) == 'n') {
             for (int i = 1; i < input.length(); i++) {

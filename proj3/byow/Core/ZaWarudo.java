@@ -129,10 +129,20 @@ public class ZaWarudo {
 
     public void placeDoor(int width, int height) {
         for (int x = 0; x < width - 1; x++) {
-            for (int y = 0; y < height - 1; y++) {
+            for (int y = 0; y < height - 2; y++) {
                 if (!doorPlaced && world[x][y] == Tileset.WALL && !isCorner(x, y)) {
                     world[x][y] = Tileset.LOCKED_DOOR; // set the tile to be avatar, must track this old spot
                     doorPlaced = true;
+                }
+            }
+        }
+    }
+
+    public void placeCoins(int width, int height) {
+        for (int x = 0; x < width - 1; x *= 5) {
+            for (int y = 0; y < height - 3; y += 2) {
+                if (world[x][y] == Tileset.FLOOR) {
+                    world[x][y] = Tileset.COIN;
                 }
             }
         }
