@@ -71,6 +71,7 @@ public class Engine {
 //                }
                 String seedTot = "";
                 String savedMoves = "";
+                String fileWords = "";
                 if (in == 'n' || in == 'N') {
                     StdDraw.clear(Color.BLACK);
                     StdDraw.text(WIDTH / 2, HEIGHT / 2, "Please enter a seed: ");
@@ -123,10 +124,15 @@ public class Engine {
                                         char nextnext = StdDraw.nextKeyTyped();
                                         if (nextnext == 'Q' || nextnext == 'q') {
                                             // figure out how to save
-                                            System.out.print(seedTot + ","); // save the seed --> not actually being saved rn
-                                            System.out.print(savedMoves);
-                                            out.print(seedTot + ","); // save the seed --> not actually being saved rn
-                                            out.print(savedMoves);
+                                            //System.out.print(seedTot + ","); // save the seed --> not actually being saved rn
+                                            //System.out.print(savedMoves);
+                                            fileWords += seedTot;
+                                            fileWords += ",";
+                                            fileWords += savedMoves;
+                                            System.out.println(fileWords);
+//                                            out.print(seedTot + ","); // save the seed --> not actually being saved rn
+//                                            out.print(savedMoves);
+                                            out.print(fileWords);
                                             System.exit(0);
                                         }
                                     }
