@@ -7,7 +7,6 @@ import edu.princeton.cs.algs4.Out;
 import edu.princeton.cs.algs4.StdDraw;
 
 import java.awt.*;
-import java.util.Arrays;
 import java.util.Random;
 
 
@@ -144,18 +143,13 @@ public class Engine {
                     System.out.println("L pressed");
                     String[] moveParts = new String[2];
                     In moves = new In(filename);
-//                    String[] allMoves = {};
                     while (!moves.isEmpty()) {
                         String allMoves = moves.readLine();
                         moveParts = allMoves.split(",");
-//                        System.out.println(Arrays.toString(allMoves));
                     }
-//                    String allMoves = "";
-//                    allMoves = moves.readAll();
-//                    char[] charArrayOfMoves =  allMoves.toCharArray();
+                    savedMoves += moveParts[1];
+                    seedTot = moveParts[0];
                     System.out.println(moveParts[1]);
-//                    System.out.println(allMoves[0] + " allMoves[0]");
-//                    world.world = interactWithInputString(allMoves[0]);
                     world.world = interactWithInputString(moveParts[0]); // fill w input string
                     Interact interact = new Interact(world);
                     Position p = interact.placeAvatar(WIDTH, HEIGHT);
@@ -165,15 +159,9 @@ public class Engine {
                         Position save = interact.move(next, p); // calls move on the previously entered move
                         p = save;
                     }
-//                    String hey = "wasd"; // testing with a pre loaded keyboard inputs
-//                    for (int i = 0; i < hey.length(); i++) {
-//                        char next = hey.charAt(i);
-//                        Position save = interact.move(next, p); // calls move on the previously entered move
-//                        p = save;
-//                    }
                     ter.renderFrame(world.world);
-//                    savedMoves += allMoves[1];
                     loadedAlr = true;
+                    Out out = new Out(filename);
                     while (true) {
                         xPos = (int) StdDraw.mouseX();
                         yPos = (int) StdDraw.mouseY();
@@ -194,6 +182,21 @@ public class Engine {
                             char next = StdDraw.nextKeyTyped();
                             if (next != ':') {
                                 savedMoves += Character.toString(next); // savedMoves = all the moves entered
+                            }
+                            if (next == ':') { // make sure it can quit while the game is being played
+                                while (true) {
+                                    if (StdDraw.hasNextKeyTyped()) {
+                                        char nextnext = StdDraw.nextKeyTyped();
+                                        if (nextnext == 'Q' || nextnext == 'q') {
+                                            fileWords += seedTot;
+                                            fileWords += ",";
+                                            fileWords += savedMoves;
+                                            System.out.println(fileWords);
+                                            out.print(fileWords);
+                                            System.exit(0);
+                                        }
+                                    }
+                                }
                             }
                             Position save = interact.move(next, p);
                             ter.renderFrame(world.world);
