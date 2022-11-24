@@ -117,16 +117,33 @@ public class Engine {
                             if (next != ':') {
                                 savedMoves += Character.toString(next); // savedMoves = all the moves entered
                             }
+                            if (next == ':') { // make sure it can quit while the game is being played
+                                while (true) {
+                                    if (StdDraw.hasNextKeyTyped()) {
+                                        char nextnext = StdDraw.nextKeyTyped();
+                                        if (nextnext == 'Q' || nextnext == 'q') {
+                                            // figure out how to save
+                                            System.out.print(seedTot + ","); // save the seed --> not actually being saved rn
+                                            System.out.print(savedMoves);
+                                            out.print(seedTot + ","); // save the seed --> not actually being saved rn
+                                            out.print(savedMoves);
+                                            System.exit(0);
+                                        }
+                                    }
+                                }
+                            }
                             Position save = interact.move(next, p);
                             ter.renderFrame(world.world);
                             p = save;
                         }
-//                        out.print(seedTot + ","); // save the seed --> not actually being saved rn
-//                        out.print(savedMoves);
+                        out.print(seedTot + ","); // save the seed --> not actually being saved rn
+                        out.print(savedMoves);
                     }
                 }
-                out.print(seedTot + ","); // save the seed --> not actually being saved rn
-                out.print(savedMoves);
+//                System.out.println(seedTot);
+//                System.out.println(savedMoves);
+//                out.print(seedTot + ","); // save the seed --> not actually being saved rn
+//                out.print(savedMoves);
                 if (in == 'l' || in == 'L' && !loadedAlr) {
                     System.out.println("L pressed");
                     In moves = new In(filename);
