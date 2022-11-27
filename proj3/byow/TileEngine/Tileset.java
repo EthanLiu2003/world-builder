@@ -17,12 +17,17 @@ import java.awt.Color;
  */
 
 public class Tileset {
-    public static final TETile AVATAR = new TETile('☺', new Color(246, 74, 170), Color.black, "you");
+    public static final TETile AVATAR = new TETile('☺', new Color(246, 74, 170), Color.black,
+            "you (kirby)", "./byow/TileEngine/tiles/kirby.png");
     public static final TETile WALL = new TETile('#', new Color(145, 115, 164), new Color(50, 39, 59),
-            "wall");
-    public static final TETile FLOOR = new TETile('·', new Color(100, 143, 156), Color.black,
-            "floor");
-    public static final TETile NOTHING = new TETile(' ', Color.black, Color.black, "nothing");
+            "cloud", "./byow/TileEngine/tiles/cloud.png");
+    public static final TETile FLOOR = new TETile('·', new Color(246, 74, 170), Color.black,
+            "floor", "./byow/TileEngine/tiles/floor3.png");
+
+    public static final TETile BACKGROUND = new TETile(' ', Color.black, Color.black,
+            "background", "./byow/TileEngine/tiles/bkgd.png");
+    public static final TETile NOTHING = new TETile(' ', Color.black, new Color(0,0,0 ),
+            "nothing", "./byow/TileEngine/tiles/bkgd2.png");
     public static final TETile GRASS = new TETile('"', Color.green, Color.black, "grass");
     public static final TETile WATER = new TETile('≈', Color.blue, Color.black, "water");
     public static final TETile FLOWER = new TETile('❀', Color.magenta, Color.pink, "flower");
@@ -33,7 +38,8 @@ public class Tileset {
     public static final TETile SAND = new TETile('▒', Color.yellow, Color.black, "sand");
     public static final TETile MOUNTAIN = new TETile('▲', Color.gray, Color.black, "mountain");
     public static final TETile TREE = new TETile('♠', Color.green, Color.black, "tree");
-    public static final TETile COIN = new TETile('٭', new Color(208, 166, 59), Color.black, "coin");
+    public static final TETile STAR = new TETile('٭', new Color(208, 166, 59), Color.black, "star",
+            "./byow/TileEngine/tiles/star.png");
 }
 
 

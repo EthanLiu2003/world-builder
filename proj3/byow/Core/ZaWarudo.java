@@ -26,8 +26,12 @@ public class ZaWarudo {
 
     public void generateEmptyWorld(Random seed, TETile[][] world, int width, int height) {
         for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < height; y++) {
                 world[x][y] = Tileset.NOTHING;
+//                if (y > height - 3) {
+//                    world[x][y] = Tileset.NOTHING;
+//                }
+            }
         }
     }
 
@@ -138,12 +142,11 @@ public class ZaWarudo {
         }
     }
 
-    public void placeCoins(int width, int height) {
+    public void addStars(int width, int height) {
         for (int x = 0; x < width - 1; x += 7) {
             for (int y = 0; y < height - 3; y += 4) {
                 if (world[x][y] == Tileset.FLOOR) {
-                    world[x][y] = Tileset.COIN;
-                    System.out.println("Coins placed");
+                    world[x][y] = Tileset.STAR;
                 }
             }
         }

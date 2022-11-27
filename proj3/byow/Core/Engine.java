@@ -94,7 +94,8 @@ public class Engine {
                         String formattedDateTime = currentLocalDateTime.format(dateTimeFormatter);
                         StdDraw.setPenColor(new Color(246, 74, 170));
                         StdDraw.setFont(smallFont);
-                        StdDraw.textRight(WIDTH - 5, HEIGHT - 1, formattedDateTime);
+                        StdDraw.textRight(WIDTH - 2, HEIGHT - 1, formattedDateTime);
+                        StdDraw.text(WIDTH / 2, HEIGHT - 1, "Stars Collected: " + interact.starCount);
                         StdDraw.show();
                         xPos = (int) StdDraw.mouseX();
                         yPos = (int) StdDraw.mouseY();
@@ -165,7 +166,8 @@ public class Engine {
                         String formattedDateTime = currentLocalDateTime.format(dateTimeFormatter);
                         StdDraw.setPenColor(new Color(246, 74, 170));
                         StdDraw.setFont(smallFont);
-                        StdDraw.textRight(WIDTH - 5, HEIGHT - 1, formattedDateTime);
+                        StdDraw.textRight(WIDTH - 2, HEIGHT - 1, formattedDateTime);
+                        StdDraw.text(WIDTH / 2, HEIGHT - 1, "Stars Collected: " + interact.starCount);
                         StdDraw.show();
                         xPos = (int) StdDraw.mouseX();
                         yPos = (int) StdDraw.mouseY();
@@ -233,7 +235,8 @@ public class Engine {
                         String formattedDateTime = currentLocalDateTime.format(dateTimeFormatter);
                         StdDraw.setPenColor(new Color(246, 74, 170));
                         StdDraw.setFont(smallFont);
-                        StdDraw.textRight(WIDTH - 5, HEIGHT - 1, formattedDateTime);
+                        StdDraw.textRight(WIDTH - 2, HEIGHT - 1, formattedDateTime);
+                        StdDraw.text(WIDTH / 2, HEIGHT - 1, "Stars Collected: " + interact.starCount);
                         StdDraw.show();
                         xPos = (int) StdDraw.mouseX();
                         yPos = (int) StdDraw.mouseY();
@@ -333,7 +336,7 @@ public class Engine {
             world.fillWithRooms();
             world.connectRooms();
             world.addWalls();
-            world.placeCoins(WIDTH, HEIGHT);
+            world.addStars(WIDTH, HEIGHT);
         }
         return world.world;
     }
