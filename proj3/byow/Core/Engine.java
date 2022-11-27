@@ -317,14 +317,7 @@ public class Engine {
         // See proj3.byow.InputDemo for a demo of how you can make a nice clean interface
         // that works for many different input types.
         Random seed = new Random(Long.parseLong(input.replaceAll("[^0-9]", "")));
-
         TETile[][] finalWorldFrame = new TETile[WIDTH][HEIGHT];
-        ZaWarudo world = new ZaWarudo(finalWorldFrame, seed, HEIGHT, WIDTH);
-        world.generateEmptyWorld(seed, finalWorldFrame, WIDTH, HEIGHT);
-        world.fillWithRooms();
-        world.connectRooms();
-        world.addWalls();
-//        world.placeCoins(WIDTH, HEIGHT);
         String saveString = "";
         if (input.charAt(0) == 'N' || input.charAt(0) == 'n') {
             for (int i = 1; i < input.length(); i++) {
@@ -335,12 +328,12 @@ public class Engine {
             }
             long seedSave = Long.parseLong(saveString);
             seed = new Random((seedSave));
-//            TETile[][] finalWorldFrame = new TETile[WIDTH][HEIGHT];
             world = new ZaWarudo(finalWorldFrame, seed, HEIGHT, WIDTH);
             world.generateEmptyWorld(seed, finalWorldFrame, WIDTH, HEIGHT);
             world.fillWithRooms();
             world.connectRooms();
             world.addWalls();
+            world.placeCoins(WIDTH, HEIGHT);
         }
         return world.world;
     }
