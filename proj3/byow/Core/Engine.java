@@ -273,6 +273,9 @@ public class Engine {
                                     }
                                 }
                             }
+                            Position save = interact.move(next, p);
+                            ter.renderFrame(world.world);
+                            p = save;
                         }
                     }
                 } else if (in == ':') { // make sure it can quit while the game is being played
