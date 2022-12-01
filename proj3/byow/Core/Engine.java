@@ -175,7 +175,6 @@ public class Engine {
                         StdDraw.setFont(smallFont);
                         StdDraw.textRight(WIDTH - 2, HEIGHT - 1, formattedDateTime);
                         StdDraw.text(WIDTH / 2, HEIGHT - 1, "Stars Collected: " + interact.starCount);
-                        StdDraw.show();
                         xPos = (int) StdDraw.mouseX();
                         yPos = (int) StdDraw.mouseY();
                         String posDesc = "";
@@ -253,7 +252,6 @@ public class Engine {
                         StdDraw.setFont(smallFont);
                         StdDraw.textRight(WIDTH - 2, HEIGHT - 1, formattedDateTime);
                         StdDraw.text(WIDTH / 2, HEIGHT - 1, "Stars Collected: " + interact.starCount);
-                        StdDraw.show();
                         xPos = (int) StdDraw.mouseX();
                         yPos = (int) StdDraw.mouseY();
                         String posDesc = "";
