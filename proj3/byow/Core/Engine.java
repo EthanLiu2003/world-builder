@@ -88,6 +88,7 @@ public class Engine {
                     Interact interact = new Interact(world);
                     Position p = interact.placeAvatar(WIDTH, HEIGHT);
                     ter.renderFrame(world.world);
+                    Position saveMouse = new Position(0, 0);
                     while (true) {
                         LocalDateTime currentLocalDateTime = LocalDateTime.now();
                         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -96,7 +97,6 @@ public class Engine {
                         StdDraw.setFont(smallFont);
                         StdDraw.textRight(WIDTH - 2, HEIGHT - 1, formattedDateTime);
                         StdDraw.text(WIDTH / 2, HEIGHT - 1, "Stars Collected: " + interact.starCount);
-                        StdDraw.show();
                         xPos = (int) StdDraw.mouseX();
                         yPos = (int) StdDraw.mouseY();
                         String posDesc = "";
@@ -105,11 +105,17 @@ public class Engine {
                             StdDraw.setPenColor(new Color(246, 74, 170));
                             StdDraw.setFont(smallFont);
                             posDesc = world.world[xPos][yPos].description();
-                            if (!posDesc.equals(saved)) {
-                                saved = posDesc; // save old pos, compare to new one7
+                            Position mouse = new Position(xPos, yPos);
+                            if (mouse != (saveMouse)) {
+                                System.out.println(mouse.x + "" + mouse.y + " Old: " + saveMouse.x + "" + saveMouse.y);
+                                saveMouse = mouse; // unchanged, old position
+                                mouse = new Position(xPos, yPos);
                                 StdDraw.textLeft(1, HEIGHT - 1, posDesc);
                                 StdDraw.show();
-                                ter.renderFrame(world.world); // only call render frame once?
+                                if (saved != posDesc) {
+                                    StdDraw.pause(50);
+                                    ter.renderFrame(world.world);
+                                }
                             }
                         }
                         if (StdDraw.hasNextKeyTyped()) { // calls the movement of avatar
@@ -160,6 +166,7 @@ public class Engine {
                     ter.renderFrame(world.world);
                     loadedAlr = true;
                     Out out = new Out(filename);
+                    Position saveMouse = new Position(0,0);
                     while (true) {
                         LocalDateTime currentLocalDateTime = LocalDateTime.now();
                         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -174,12 +181,20 @@ public class Engine {
                         String posDesc = "";
                         String saved = "";
                         if (xPos > -1 && xPos < WIDTH && yPos > -1 && yPos < HEIGHT) {
+                            StdDraw.setPenColor(new Color(246, 74, 170));
+                            StdDraw.setFont(smallFont);
                             posDesc = world.world[xPos][yPos].description();
-                            if (!posDesc.equals(saved)) {
-                                saved = posDesc; // save old pos, compare to new one7
+                            Position mouse = new Position(xPos, yPos);
+                            if (mouse != (saveMouse)) {
+                                System.out.println(mouse.x + "" + mouse.y + " Old: " + saveMouse.x + "" + saveMouse.y);
+                                saveMouse = mouse; // unchanged, old position
+                                mouse = new Position(xPos, yPos);
                                 StdDraw.textLeft(1, HEIGHT - 1, posDesc);
                                 StdDraw.show();
-                                ter.renderFrame(world.world); // only call render frame once?
+                                if (saved != posDesc) {
+                                    StdDraw.pause(50);
+                                    ter.renderFrame(world.world);
+                                }
                             }
                         }
                         if (StdDraw.hasNextKeyTyped()) { // calls the movement of avatar
@@ -229,6 +244,7 @@ public class Engine {
                     }
                     loadedAlr = true;
                     Out out = new Out(filename);
+                    Position saveMouse = new Position(0,0);
                     while (true) {
                         LocalDateTime currentLocalDateTime = LocalDateTime.now();
                         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -246,11 +262,17 @@ public class Engine {
                             StdDraw.setPenColor(new Color(246, 74, 170));
                             StdDraw.setFont(smallFont);
                             posDesc = world.world[xPos][yPos].description();
-                            if (!posDesc.equals(saved)) {
-                                saved = posDesc; // save old pos, compare to new one7
+                            Position mouse = new Position(xPos, yPos);
+                            if (mouse != (saveMouse)) {
+                                System.out.println(mouse.x + "" + mouse.y + " Old: " + saveMouse.x + "" + saveMouse.y);
+                                saveMouse = mouse; // unchanged, old position
+                                mouse = new Position(xPos, yPos);
                                 StdDraw.textLeft(1, HEIGHT - 1, posDesc);
                                 StdDraw.show();
-                                ter.renderFrame(world.world); // only call render frame once?
+                                if (saved != posDesc) {
+                                    StdDraw.pause(50);
+                                    ter.renderFrame(world.world);
+                                }
                             }
                         }
                         if (StdDraw.hasNextKeyTyped()) { // calls the movement of avatar
