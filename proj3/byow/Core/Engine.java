@@ -72,6 +72,7 @@ public class Engine {
                             char seedIn = StdDraw.nextKeyTyped();
                             if ((seedIn == 's' || seedIn == 'S')) {
                                 seedTot += Character.toString(seedIn);
+//                                noN += Character.toString(seedIn);
                                 System.out.println("Seed: " + seedTot);
                                 world.world = interactWithInputString(seedTot);
                                 break;
@@ -80,7 +81,11 @@ public class Engine {
                                 StdDraw.text(WIDTH / 2 - 5, HEIGHT / 2 - 5, "");
                                 StdDraw.clear(Color.BLACK);
                                 StdDraw.text(WIDTH / 2, HEIGHT / 2, "Please enter a seed: ");
-                                StdDraw.text(WIDTH / 2 - 5, HEIGHT / 2 - 5, seedTot);
+                                String seedSave = "";
+                                for (int i = 1; i < seedTot.length(); i++) {
+                                    seedSave += seedTot.charAt(i);
+                                }
+                                StdDraw.text(WIDTH / 2 - 5, HEIGHT / 2 - 5, seedSave);
                                 StdDraw.show();
                             }
                         }
@@ -113,7 +118,7 @@ public class Engine {
                                 StdDraw.textLeft(1, HEIGHT - 1, posDesc);
                                 StdDraw.show();
                                 if (saved != posDesc) {
-                                    StdDraw.pause(50);
+                                    StdDraw.pause(10);
                                     ter.renderFrame(world.world);
                                 }
                             }
